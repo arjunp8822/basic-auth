@@ -1,25 +1,42 @@
 const express = require('express')
+const bcrypt = require('bcrypt')
 
 const app = express()
 
-const middleware = (req, res, next) => {
-    console.log('This is a middleware')
-    next()
-}
+app.use(express.json())
 
-const errorMiddleware = (err, req, res, next) => {
-    if (err) {
-        res.send('<h1>Error handled</h1>')
-    }
-}
+const users = []
 
-app.use(middleware)
-
-app.get('/', (req, res) => {
-    console.log('Get request')
-    res.send('<h1>This is a get request</h1>')
+app.get('/users', (req, res) => {
+    res.json(users)
 })
 
-app.use(errorMiddleware)
+app.post('/users', async (req, res) => {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    const user = {
+        username: req.body.username,
+        password: hashedPassword
+    }
+    users.push(user)
+    res.status(201).send()
+})
+
+app.post('/login', async (req, res) => {
+    const user = users.find(x => x.username === req.body.username)
+    if (!user) {
+        res.send('No user found')
+    } else {
+        try {
+            if (await bcrypt.compare(req.body.password, user.password)) {
+                res.send('Success')
+            } else {
+                res.send('Invalid password')
+            }
+        } catch (e) {
+            res.send(e)
+        }
+    }
+
+})
 
 app.listen(4000)
