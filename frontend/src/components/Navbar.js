@@ -4,7 +4,7 @@ import AuthContext from "../context/AuthContext";
 import axios from "axios";
 
 const Navbar = () => {
-  const { loggedIn, getLoggedIn } = useContext(AuthContext);
+  const { loggedIn, getLoggedIn, loggedUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
@@ -30,6 +30,12 @@ const Navbar = () => {
           <Link to="/login">
             <button onClick={logoutHandler}>Logout</button>
           </Link>
+        </>
+      )}
+
+      {loggedIn === true && (
+        <>
+          <Link to="/">{loggedUser}</Link>
         </>
       )}
     </nav>

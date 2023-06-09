@@ -57,7 +57,7 @@ router.post("/register", async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
       })
-      .send();
+      .send(savedUser.username);
   } catch (e) {
     console.error(e);
     res.status(500).send();
@@ -104,7 +104,7 @@ router.post("/login", async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
       })
-      .send();
+      .send(existingUser.username);
   } catch (e) {
     console.error(e);
     res.status(500).send();

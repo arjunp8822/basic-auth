@@ -8,7 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorState, setErrorState] = useState(null);
   const navigate = useNavigate();
-  const { getLoggedIn } = useContext(AuthContext);
+  const { getLoggedIn, setLoggedUser } = useContext(AuthContext);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -17,7 +17,11 @@ const Login = () => {
         username: username,
         password: password,
       };
-      await axios.post("http://localhost:4000/auth/login", loginData);
+      const result = await axios.post(
+        "http://localhost:4000/auth/login",
+        loginData
+      );
+      setLoggedUser(result.data);
       await getLoggedIn();
       navigate("/");
     } catch (e) {
