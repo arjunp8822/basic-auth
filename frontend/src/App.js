@@ -7,7 +7,7 @@ import Recipes from "./pages/Recipes";
 import Navbar from "./components/Navbar";
 import axios from "axios";
 import AuthContext from "./context/AuthContext";
-
+import NewRecipe from "./pages/NewRecipe";
 import { useContext } from "react";
 
 axios.defaults.withCredentials = true;
@@ -22,6 +22,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         {loggedIn === true && <Route path="/recipes" element={<Recipes />} />}
+        {loggedIn === true && (
+          <Route path="/newrecipe" element={<NewRecipe />} />
+        )}
       </Routes>
     </>
   );

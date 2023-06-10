@@ -24,6 +24,7 @@ const Navbar = () => {
       )}
 
       {loggedIn === true && <Link to="/recipes">Recipes</Link>}
+      {loggedIn === true && <Link to="/newrecipe">New Recipe</Link>}
 
       {loggedIn === true && (
         <>
