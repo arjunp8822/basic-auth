@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./NewRecipe.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { Navigate } from "react-router-dom";
 import axios from "axios";
+import AuthContext from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const modules = {
   toolbar: [
@@ -35,7 +36,8 @@ const formats = [
 ];
 
 const NewRecipe = () => {
-  const [redirect, setRedirect] = useState(false);
+  const { loggedUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [createdRecipe, setCreatedRecipe] = useState({
     title: "",
@@ -47,33 +49,19 @@ const NewRecipe = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // const data = {
-    //   title: createdRecipe.title,
-    //   summary: createdRecipe.summary,
-    //   time: createdRecipe.time,
-    //   content: createdRecipe.content,
-    //   file: createdRecipe.file[0],
-    // };
+
     const data = new FormData();
     data.set("title", createdRecipe.title);
     data.set("summary", createdRecipe.summary);
     data.set("time", createdRecipe.time);
     data.set("content", createdRecipe.content);
     data.set("file", createdRecipe.file[0]);
+    data.set("author", loggedUser);
 
-    const response = await axios.post(
-      "http://localhost:4000/recipes/create",
-      data
-    );
+    await axios.post("http://localhost:4000/recipes/create", data);
 
-    // if (response.ok) {
-    //   setRedirect(true);
-    // }
+    navigate("/recipes");
   };
-
-  if (redirect) {
-    return <Navigate to={"/"} />;
-  }
 
   return (
     <section>

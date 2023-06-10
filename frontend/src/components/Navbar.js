@@ -28,7 +28,7 @@ const Navbar = () => {
 
       {loggedIn === true && (
         <>
-          <Link to="/login">
+          <Link to="/">
             <button onClick={logoutHandler}>Logout</button>
           </Link>
         </>

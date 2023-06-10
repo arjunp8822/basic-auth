@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Recipe = require("../models/RecipeModel");
+const User = require("../models/UserModel");
 const auth = require("../middleware/auth");
 const multer = require("multer");
 const uploadMiddleware = multer({ dest: "uploads/" });
@@ -13,7 +14,8 @@ router.post(
   uploadMiddleware.single("file"),
   async (req, res) => {
     try {
-      const { title, summary, content, time, cover, author } = req.body;
+      const { title, summary, content, time, author } = req.body;
+      console.log(req.body);
       const { originalname, path } = req.file;
       const parts = originalname.split(".");
       const ext = parts[parts.length - 1];
@@ -25,9 +27,8 @@ router.post(
         content: content,
         time: time,
         cover: newPath,
-        author: "author",
+        author: author,
       });
-      console.log(originalname, path, newPath);
       const savedRecipe = await newRecipe.save();
       res.status(200).json(savedRecipe);
     } catch (e) {

@@ -8,9 +8,7 @@ const Recipes = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("http://localhost:4000/recipes");
-      // const data = response.json();
       setPosts(response.data);
-      console.log(posts);
     };
     fetchData();
   }, []);
@@ -21,6 +19,7 @@ const Recipes = () => {
         {posts.length > 0 &&
           posts.map((post) => (
             <RecipeCard
+              key={post._id}
               title={post.title}
               time={post.time}
               description={post.summary}
