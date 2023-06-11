@@ -4,20 +4,36 @@ import axios from "axios";
 
 const Recipes = () => {
   const [posts, setPosts] = useState([]);
+  const [updatedPosts, setUpdatedPosts] = useState([]);
+  const [title, setTitle] = useState([]);
+  const [test, setTest] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("http://localhost:4000/recipes");
       setPosts(response.data);
+      setUpdatedPosts(response.data);
     };
     fetchData();
   }, []);
 
+  const filteredPosts = async (e) => {
+    setTitle(e.target.value);
+    posts.forEach((post) => {
+      const thisTitle = post.title;
+      if (thisTitle.includes("title")) {
+        setTest(1);
+      }
+      console.log(thisTitle, title, test);
+    });
+  };
+
   return (
     <section>
+      <input placeholder="Search" onChange={filteredPosts} />
       <div className="container home-container">
         {posts.length > 0 &&
-          posts.map((post) => (
+          updatedPosts.map((post) => (
             <RecipeCard
               key={post._id}
               title={post.title}
