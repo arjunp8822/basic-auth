@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import AuthContext from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./Login.css";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -31,31 +32,41 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h1>Register a new account</h1>
-      <form onSubmit={submitHandler}>
-        <input
-          type="string"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          onChange={(e) => setpasswordVerify(e.target.value)}
-          value={passwordVerify}
-        />
-        <button type="submit">Register</button>
-      </form>
-      {errorState}
-    </div>
+    <section>
+      <div className="container login-container">
+        <div className="login-box">
+          <h1>Create a new account</h1>
+          <form onSubmit={submitHandler}>
+            <input
+              type="string"
+              placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              onChange={(e) => setpasswordVerify(e.target.value)}
+              value={passwordVerify}
+            />
+            <div className="login-error">{errorState}</div>
+            <button type="submit">Register</button>
+          </form>
+          <div className="register-container">
+            <span>Already have an account?</span>
+            <Link to="/login" className="sign-up">
+              Login
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
