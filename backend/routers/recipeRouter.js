@@ -15,12 +15,12 @@ router.post(
   async (req, res) => {
     try {
       const { title, summary, content, time, author } = req.body;
-      console.log(req.body);
       const { originalname, path } = req.file;
       const parts = originalname.split(".");
       const ext = parts[parts.length - 1];
       const newPath = path + "." + ext;
       fs.renameSync(path, newPath);
+
       const newRecipe = new Recipe({
         title: title,
         summary: summary,
@@ -30,6 +30,7 @@ router.post(
         author: author,
       });
       const savedRecipe = await newRecipe.save();
+      console.log(author);
       res.status(200).json(savedRecipe);
     } catch (e) {
       console.error(e);
@@ -42,6 +43,16 @@ router.get("/", auth, async (req, res) => {
   try {
     const recipes = await Recipe.find();
     res.json(recipes);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send();
+  }
+});
+
+router.get("/:id", auth, async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+    res.json(recipe);
   } catch (e) {
     console.error(e);
     res.status(500).send();

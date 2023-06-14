@@ -48,7 +48,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
+    text-align: end;
     gap: 5px;
-    width: 50%;
     color: var(--grey);
 }
