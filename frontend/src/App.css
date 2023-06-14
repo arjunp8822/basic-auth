@@ -9,7 +9,9 @@
 
 :root {
   --primary: #2F3D64;
+  --primary-light: #757e98;
   --grey: #787878;
+  --light-grey: #8f8e8e;
   --dark-green: #005c3a;
   --error: #fc5555;
 

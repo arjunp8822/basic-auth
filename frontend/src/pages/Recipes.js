@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import axios from "axios";
+import "./Recipes.css";
 
 const Recipes = () => {
   const [posts, setPosts] = useState([]);
@@ -30,7 +31,7 @@ const Recipes = () => {
 
   return (
     <section>
-      <input placeholder="Search" onChange={filteredPosts} />
+      {/* <input placeholder="Search" onChange={filteredPosts} /> */}
       <div className="container home-container">
         {posts.length > 0 &&
           updatedPosts.map((post) => (
