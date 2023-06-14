@@ -32,7 +32,7 @@ const Recipes = () => {
   return (
     <section>
       {/* <input placeholder="Search" onChange={filteredPosts} /> */}
-      <div className="container home-container">
+      <div className="container recipes-container">
         {posts.length > 0 &&
           updatedPosts.map((post) => (
             <RecipeCard
