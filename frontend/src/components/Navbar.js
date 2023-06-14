@@ -25,11 +25,9 @@ const Navbar = () => {
 
       <div className={showmobileNav ? "nav-list" : "nav-list nav-hidden"}>
         <div className="nav-main">
-          {loggedIn === true && (
-            <Link to="/recipes" onClick={() => setShowMobileNav(false)}>
-              Recipes
-            </Link>
-          )}
+          <Link to="/recipes" onClick={() => setShowMobileNav(false)}>
+            Recipes
+          </Link>
           {loggedIn === true && (
             <Link to="/newrecipe" onClick={() => setShowMobileNav(false)}>
               New Recipe

@@ -39,7 +39,7 @@ router.post(
   }
 );
 
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const recipes = await Recipe.find();
     res.json(recipes);
@@ -49,7 +49,7 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
     res.json(recipe);
