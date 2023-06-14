@@ -4,6 +4,7 @@ import AuthContext from "../context/AuthContext";
 import axios from "axios";
 import "./Navbar.css";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const Navbar = () => {
   const { loggedIn, getLoggedIn, loggedUser } = useContext(AuthContext);
@@ -17,40 +18,71 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={showmobileNav ? "" : "nav-hidden"}>
+    <nav>
       <div className="nav-logo">
         <Link to="/">ReciME</Link>
       </div>
 
-      <div className="nav-main">
-        {loggedIn === true && <Link to="/recipes">Recipes</Link>}
-        {loggedIn === true && <Link to="/newrecipe">New Recipe</Link>}
+      <div className={showmobileNav ? "nav-list" : "nav-list nav-hidden"}>
+        <div className="nav-main">
+          {loggedIn === true && (
+            <Link to="/recipes" onClick={() => setShowMobileNav(false)}>
+              Recipes
+            </Link>
+          )}
+          {loggedIn === true && (
+            <Link to="/newrecipe" onClick={() => setShowMobileNav(false)}>
+              New Recipe
+            </Link>
+          )}
+        </div>
+
+        <div className="nav-auth">
+          <div className="close-button" onClick={() => setShowMobileNav(false)}>
+            <AiFillCloseCircle />
+          </div>
+          <div className="nav-credentials">
+            {loggedIn === false && (
+              <>
+                <Link
+                  to="/register"
+                  className="register"
+                  onClick={() => setShowMobileNav(false)}
+                >
+                  Register
+                </Link>
+                <Link to="/login" onClick={() => setShowMobileNav(false)}>
+                  Login
+                </Link>
+              </>
+            )}
+
+            {loggedIn === true && (
+              <>
+                <Link
+                  to="/"
+                  className="nav-user"
+                  onClick={() => setShowMobileNav(false)}
+                >
+                  {loggedUser}
+                </Link>
+              </>
+            )}
+            {loggedIn === true && (
+              <>
+                <Link to="/" onClick={() => setShowMobileNav(false)}>
+                  <button onClick={logoutHandler}>Logout</button>
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="nav-auth">
-        {loggedIn === false && (
-          <>
-            <Link to="/register">Register</Link>
-            <Link to="/login">Login</Link>
-          </>
-        )}
-        {loggedIn === true && (
-          <>
-            <Link to="/">
-              <button onClick={logoutHandler}>Logout</button>
-            </Link>
-          </>
-        )}
-        {loggedIn === true && (
-          <>
-            <Link to="/" className="nav-user">
-              {loggedUser}
-            </Link>
-          </>
-        )}
-      </div>
-
-      <div className="nav-mobile-icon">
+      <div
+        className="nav-mobile-icon"
+        onClick={() => setShowMobileNav(!showmobileNav)}
+      >
         <GiHamburgerMenu />
       </div>
     </nav>
