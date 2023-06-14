@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import "./Login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -29,26 +30,45 @@ const Login = () => {
     }
   };
 
+  const demoButton = (e) => {
+    e.preventDefault();
+    setUsername("Test");
+    setPassword("Test12345");
+  };
+
   return (
-    <div>
-      <h1>Login to your account</h1>
-      <form onSubmit={submitHandler}>
-        <input
-          type="string"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <button type="submit">Login</button>
-      </form>
-      {errorState}
-    </div>
+    <section>
+      <div className="container login-container">
+        <div className="login-box">
+          <h1>ReciME Login</h1>
+          <form onSubmit={submitHandler}>
+            <input
+              type="string"
+              placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+            <div className="login-error">{errorState}</div>
+            <button type="button" onClick={demoButton}>
+              Use Demo Account
+            </button>
+            <button type="submit">Login</button>
+          </form>
+          <div className="register-container">
+            <span>Don't have an account?</span>
+            <Link to="/register" className="sign-up">
+              Sign Up
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

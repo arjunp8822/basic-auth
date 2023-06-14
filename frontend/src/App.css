@@ -9,6 +9,9 @@
 
 :root {
   --primary: #2F3D64;
+  --grey: #787878;
+  --dark-green: #005c3a;
+  --error: #fc5555;
 
   --border-radius: 10px;
   --transition: all 0.5s;
@@ -30,9 +33,24 @@ button:hover {
   cursor: pointer;
 }
 
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: min(1200px, 100vw);
+  padding: 0 80px;
+}
+
 @media (max-width: 768px) {
   html, body {
     max-width: 100%;
     overflow-x: hidden;
+  }
+
+  .container {
+    padding: 0 40px;
   }
 }
