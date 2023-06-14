@@ -43,6 +43,19 @@
     margin-bottom: 20px;
 }
 
+.recipe-container ol {
+    list-style-type: decimal;
+    list-style-position: outside;
+    padding-left: 20px;
+}
+
+.recipe-container li {
+    font-size: 15px;
+    color: var(--grey);
+    margin-bottom: 10px;
+    
+}
+
 .nutrition-container {
     display: flex;
     justify-content: flex-start;
@@ -125,7 +138,7 @@
 
 @media (max-width: 768px) {
     .recipe-container {
-        padding: 20px;
+        padding: 60px 20px;
     }
 
     .recipe-container img {
