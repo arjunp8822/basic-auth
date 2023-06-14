@@ -4,7 +4,7 @@
     align-items: center;
     flex-direction: column;
     padding: 40px;
-    width: min(400px, 90%);
+    width: min(400px, 100vw);
     background-color: #fff;
     border-radius: var(--border-radius);
 }
